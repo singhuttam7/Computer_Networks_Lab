@@ -51,13 +51,14 @@ Here,
 
 ==========================================================
 */
-
+//=========================BYTE STUFFING==================
 #include<iostream>
 #include<cstring>
 //#using namespace std;
 int main(){
 char input[100];
-char output[200];
+char stuffed[200];
+char unstuffed[200];
 int j = 0;
 std::cout<<"Enter the characters: "<<std::endl;
 std::cin.getline(input, 100);//If we are using character array
@@ -65,15 +66,27 @@ std::cout<<"Original Characters: "<<input<<std::endl;
 
 for(int i = 0; input[i] != '\0'; i++){
 if(input[i] == 'F' || input[i] == 'E'){
-output[j] = 'E';
+stuffed[j] = 'E';
 j++;
 }
-output[j] = input[i];
+stuffed[j] = input[i];
 j++;
 }
-output[j] = '\0';
+stuffed[j] = '\0';
 
-std::cout<<"Stuffed data: "<<output<<std::endl;
+std::cout<<"Stuffed data: "<<stuffed<<std::endl;
+
+//==========================BYTE UNSTUFFING=================
+j = 0;
+for(int i = 0; stuffed[i] != '\0'; i++){
+if(stuffed[i] == 'E'){
+i++; //Skip the stuffed Byte
+}
+unstuffed[j] = stuffed[i];
+j++;
+}
+unstuffed[j] = '\0';
+std::cout<<"Unstuffed Byte: "<<unstuffed<<std::endl;
 
 return 0;
 }

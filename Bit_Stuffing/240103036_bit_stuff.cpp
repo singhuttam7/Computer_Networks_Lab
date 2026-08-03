@@ -40,12 +40,16 @@ Here,
 
 ==========================================================
 */
+/*
+BIT STUFFING
+*/
 
 #include <iostream>
 #include <cstring>
 int main(){
 char input[100];
-char output[200];
+char stuffed[200];
+char unstuffed[200];
 int count = 0;
 int j = 0;
 std::cout<<"Enter the bits:"<<std::endl;
@@ -54,12 +58,12 @@ std::cout<<"Original Bits: "<<input<<std::endl;
 int len = strlen(input);
 //by traversing
 for(int i = 0; i< len; i++){
-output[j] = input[i];
+stuffed[j] = input[i];
 j++;
 if(input[i] == '1'){
 count ++;
 if(count == 5){
-output[j] = '0';
+stuffed[j] = '0';
 j++;
 count = 0;
 }
@@ -68,8 +72,31 @@ count = 0;
 count = 0;
 }
 }
-output[j] = '\0';
-std::cout<<"Stuffed bit: "<<output<<std::endl;
+stuffed[j] = '\0';
+std::cout<<"Stuffed bit: "<<stuffed<<std::endl;
+/*================
+BIT UNSTUFFING
+*/
+count = 0;
+j = 0;
+len = strlen(stuffed);
+for(int i = 0; i < len; i++){
+unstuffed[j] = stuffed[i];
+j++;
 
+if(stuffed[i] == '1'){
+count ++;
+
+if(count == 5){
+i++; //Skip the stuffed zero
+count = 0;
+}
+}else{
+count = 0;
+}
+
+}
+unstuffed[j] = '\0';
+std::cout<<"Unstuffed Bits: "<<unstuffed<<std::endl;
 return 0;
 }
